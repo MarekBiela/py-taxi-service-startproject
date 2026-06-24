@@ -1,15 +1,17 @@
 from django.contrib import admin
 from .models import Driver, Manufacturer, Car
+from django.contrib.auth.admin import UserAdmin
 
 
-class DriverAdmin(admin.ModelAdmin):
+class DriverAdmin(UserAdmin):
     list_display = ["username", "first_name", "last_name", "license_number"]
-    fieldsets = [
+    fieldsets = UserAdmin.fieldsets + (
         ("Additional info", {"fields": ["license_number"]}),
-    ]
-    add_fieldsets = [
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional info", {"fields": ["license_number"]}),
-    ]
+    )
+
 
 class CarAdmin(admin.ModelAdmin):
     list_filter = ["manufacturer", ]
